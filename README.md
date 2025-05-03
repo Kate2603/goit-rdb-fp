@@ -135,6 +135,8 @@ FROM pandemic.infectious_cases_normalized;
 
 Рішення:
 
+1.
+
 SELECT \* FROM pandemic.infectious_cases_normalized;
 
 DELIMITER //
@@ -163,3 +165,37 @@ FROM pandemic.infectious_cases_normalized
 LIMIT 10;
 
 ![alt text](img/p5.2.jpg)
+
+2.
+
+SELECT \* FROM pandemic.infectious_cases_normalized;
+DELIMITER //
+
+CREATE FUNCTION avg_diseases_per_period(annual_cases INT, divisor INT)
+RETURNS DECIMAL(10,2)
+DETERMINISTIC
+BEGIN
+IF annual_cases IS NULL OR divisor = 0 THEN
+RETURN NULL;
+END IF;
+RETURN annual_cases / divisor;
+END //
+
+DELIMITER ;
+
+![alt text](img/p5.3.jpg)
+
+Приклад використання:
+
+SELECT
+entity_id,
+code_id,
+year,
+ROUND(avg_diseases_per_period(SUM(number_rabies), 12), 2) AS avg_per_month
+FROM pandemic.infectious_cases_normalized
+WHERE number_rabies IS NOT NULL
+GROUP BY entity_id, code_id, year
+ORDER BY avg_per_month DESC
+LIMIT 10;
+
+![alt text](img/p5.4.jpg)
