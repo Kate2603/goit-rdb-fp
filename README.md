@@ -135,7 +135,7 @@ FROM pandemic.infectious_cases_normalized;
 
 Рішення:
 
-1.
+1. Функція розрахунку різниці в роках. Функція повертає необхідні дані:
 
 SELECT \* FROM pandemic.infectious_cases_normalized;
 
@@ -166,7 +166,7 @@ LIMIT 10;
 
 ![alt text](img/p5.2.jpg)
 
-2.
+2. Функція розрахунку кількості захворювань за певний період. Функція повертає необхідні дані:
 
 SELECT \* FROM pandemic.infectious_cases_normalized;
 DELIMITER //
